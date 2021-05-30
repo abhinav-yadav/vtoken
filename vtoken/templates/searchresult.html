@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% load active_class %}
+{% block content %}
+<legend class="border-bottom mb-4">{% get_query request %}--Results : {{ length }}</legend>
+{% if quizes|length %}
+<div class="jumbotron">
+  <div class="grid" id="quiz-list">
+    {% for quiz in quizes %}
+    <button type="button"  class="js-grid-item" data-url="{% url 'core:attempt_quiz' slug=quiz.slug %}">
+    <div class="grid-item">
+      <div class="card" style="width: 250px;margin : 4px;">
+        {% if quiz.image %}
+        <img src="{{ quiz.image.url }}" class="card-img-top" alt="quiz_image">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ quiz.title }}</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    </button>
+    {% endfor %}
+  </div>
+</div>
+{% elif users|length %}
+<div class="jumbotron">
+  <div class="grid1" >
+    {% for user in users %}
+    <div class="grid-item">
+      <div class="our-team">
+        <div class="picture">
+          <a href="{% url 'profiles:profile' slug=user.username %}"><img class="img-fluid" src="{{ user.profileimage.profile_image.url }}"></a>
+        </div>
+        <div class="team-content">
+          <h5 class="name">{{ user.username }}</h5>
+          {% if user.profile.role %}
+          <h6 class="title">{{ user.profile.role }}</h6>
+          {% endif %}
+        </div>
+        <ul class="social">
+          {% if user.email %}
+          <li><a href="mailto:{{ user.email }}" class="fa fa-envelope-square" aria-hidden="true"></a></li>
+          {% endif %}
+          {% if user.profile.linkedin %}
+          <li><a href="{{ user.profile.linkedin }}" class="fa fa-linkedin" aria-hidden="true"></a></li>
+          {% endif %}
+          {% if user.profile.twitter %}
+          <li><a href="{{ user.profile.twitter }}" class="fa fa-twitter" aria-hidden="true"></a></li>
+          {% endif %}
+          {% if user.profile.github %}
+          <li><a href="{{ user.profile.github }}" class="fa fa-github" aria-hidden="true"></a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+<div class="modal fade" id="modal-quiz">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock content %}
+{% block custom_js %}
+<script type="text/javascript">
+  $(function() {
+    var loadForm = function() {
+      var btn = $(this);
+      $.ajax({
+        url: btn.attr("data-url"),
+        type: 'get',
+        dataType: 'json',
+        beforeSend: function() {
+          $("#modal-quiz").modal("show");
+        },
+        success: function(data) {
+          $("#modal-quiz .modal-content").html(data.html_code);
+        }
+      });
+    };
+    $("#quiz-list").on("click", ".js-grid-item", loadForm);
+  });
+</script>
+{% endblock %}

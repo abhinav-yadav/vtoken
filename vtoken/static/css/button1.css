@@ -1,0 +1,96 @@
+.btn{
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 18px;
+    margin: 5px;
+    box-shadow: 0 20px 50px rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease 0s;
+}
+.btn:focus,
+.btn:hover{
+    color: #3D1053;
+}
+.btn:before,
+.btn:after{
+    content: "";
+    background: #3D1053;
+    width: 90%;
+    height: 90%;
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    animation-delay: 0.5s;
+    transition: all 0.3s ease 0s;
+}
+.btn:after{
+    background: #e35146;
+    width: 100%;
+    height: 100%;
+    border-radius: 30% 50% 56% 20% / 50% 90% 50% 79%;
+}
+.btn:hover:before{
+    width: 105%;
+    height: 122%;
+    animation: blob 4.5s linear infinite;
+}
+.btn:hover:after{
+    width: 105%;
+    height: 120%;
+    animation: blob-two 5s linear infinite;
+}
+@keyframes blob{
+    0%{
+        border-radius: 15% 15% 20% 15% / 90% 60% 77% 70%;
+        transform: translate(-50%, -50%) rotate(0);
+    }
+    20%{
+        border-radius: 61% 39% 14% 86% / 67% 43% 57% 33%;
+        transform: translate(-48%, -52%) rotate(1deg);
+    }
+    45%{
+        border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+        transform: translate(-52%, -54%) rotate(0);
+    }
+    85%{
+        border-radius: 30% 50% 56% 20% / 50% 90% 50% 79%;
+        transform: translate(-49%, -48%) rotate(-1deg);
+    }
+    100%{
+        border-radius: 15% 15% 20% 15% / 90% 60% 77% 70%;
+        transform: translate(-50%, -50%) rotate(0);
+    }
+}
+@keyframes blob-two{
+    0%{
+        border-radius: 30% 50% 56% 20% / 50% 90% 50% 79%;
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    15%{
+        border-radius: 26% 74% 82% 18% / 48% 41% 59% 52%;
+        transform: translate(-48%, -53%) rotate(1deg);
+    }
+    40%{
+        border-radius: 15% 15% 20% 15% / 90% 60% 77% 70%;
+        transform: translate(-52%, -57%) rotate(0);
+    }
+    75%{
+        border-radius: 61% 39% 14% 86% / 67% 43% 57% 33%;
+        transform: translate(-47%, -52%) rotate(-1deg);
+    }
+    100%{
+        border-radius: 30% 50% 56% 20% / 50% 90% 50% 79%;
+        transform: translate(-50%, -50%) rotate(0);
+    }
+}
+@media only screen and (max-width: 767px){
+    .btn{ margin-bottom: 20px; }
+}

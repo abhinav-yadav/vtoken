@@ -1,0 +1,32 @@
+{% extends 'profiles/profile_base.html'%}
+{% load static %}
+{% block profile_content %}
+<div class="header-2"><i class="fa fa-th-large" aria-hidden="true"> Created quizes</i></div>
+        <div class="card-columns">
+          {% for quiz in quizes %}
+          <div class="card">
+            {% if quiz.image %}
+            <img src="{{ quiz.image.url }}" class="card-img-top" alt="quiz_image">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ quiz.title }}</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <div class="card-footer">
+            {% if request.user == quiz.author %}
+              <button type="button" class="btn btn-warning btn-sm" onclick="location.href='{% url 'core:edit_quiz' quiz.slug %}';" >
+                <span class="glyphicon glyphicon-pencil"></span>Edit
+              </button>
+            {% else %}
+            <form method="post" action="{% url 'core:attempt_quiz' quiz.slug %}" class="js-quiz-form">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-warning btn-sm" >
+                <span class="glyphicon glyphicon-pencil"></span>Attempt
+              </button>
+            </form>
+            {% endif %}
+          </div>
+          </div>
+          {% endfor %}
+        </div>
+{% endblock %}

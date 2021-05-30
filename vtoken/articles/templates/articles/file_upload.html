@@ -1,0 +1,29 @@
+{% extends 'articles/article_setting_base.html' %}
+{% load crispy_forms_tags %}
+{% block settings-content %}
+<form class="form-horizontal" method="POST" action="{% url 'articles:file_upload' pk=article.id %}" enctype="multipart/form-data">
+{% csrf_token %}
+<fieldset class="form-group">
+  <legend class="border-bottom mb-4">files Upload</legend>
+  {{form|crispy}}
+  <input type="text" id="directories" name="directories" hidden />
+</fieldset>
+<div class="form-group">
+  <button class="btn btn-outline-info" type="submit">Upload</button>
+</form>
+{% endblock %}
+{% block custom_js %}
+<script>
+ files = document.querySelector("#id_file").files;
+ document.querySelector("#id_file").addEventListener("change", function() {
+    files = document.querySelector("#id_file").files;
+    var directories = {}
+    for (var file of files) {
+      file.webkitRelativePath
+      directories[file.name] = file.webkitRelativePath
+    }
+    directories = JSON.stringify(directories);
+    document.querySelector("#directories").value = directories
+ });
+</script>
+{% endblock %}

@@ -1,0 +1,256 @@
+/* article-over readmore */
+.grid {
+  margin: 0 auto;
+}
+
+/*  */
+figure.article {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+@media only screen and (min-device-width : 0px) and (max-device-width : 390px){
+figure.article {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  float: left;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 4px;
+  width: 270px;
+  text-align: left;
+  font-size: 12px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  overflow: auto;
+}
+}
+@media only screen and (min-device-width : 391px){
+figure.article {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  float: left;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 5px 2px 5px 2px;
+  width: 300px;
+  text-align: left;
+  font-size: 16px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+}
+
+figure.article * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+figure.article .image {
+  max-height: 220px;
+  overflow: hidden;
+}
+
+figure.article img {
+  max-width: 100%;
+  vertical-align: top;
+  position: relative;
+}
+
+figure.article figcaption {
+  margin: -40px 15px 0;
+  padding: 15px;
+  position: relative;
+  background-color: #ffffff;
+}
+
+figure.article .date {
+  background-color: #444444;
+  top: 15px;
+  color: #fff;
+  left: 15px;
+  min-height: 48px;
+  min-width: 48px;
+  position: absolute;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+figure.article .date span {
+  display: block;
+  line-height: 24px;
+}
+
+figure.article .date .month {
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+figure.article h3, figure.article p {
+  margin: 0;
+  padding: 0;
+}
+
+figure.article h3 {
+  min-height: 50px;
+  margin-bottom: 10px;
+  margin-left: 60px;
+  display: inline-block;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+figure.article p {
+  font-size: 0.8em;
+  margin-bottom: 20px;
+  line-height: 1.6em;
+}
+
+figure.article footer {
+  border-radius: 0px 0px 4px 4px;
+  padding: 0 25px;
+  background-color: #282d32;
+  color: #e6e6e6;
+  font-size: 0.8em;
+  line-height: 30px;
+  text-align: right;
+}
+
+figure.article footer > div {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+figure.article footer i {
+  color: rgba(255, 255, 255, 0.2);
+  margin-right: 5px;
+}
+
+figure.article a {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+figure.article:hover img, figure.article.hover img {
+  -webkit-transform: scale(1.15);
+  transform: scale(1.15);
+}
+
+.mr-1.badge.badge-info {
+    border: transparent;
+    background-color: #505458;
+}
+
+/* profile----card */
+.our-team {
+  padding: 30px 0 40px;
+  margin-bottom: 30px;
+  background-color: rgba(0,0,0,0.12);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.our-team .picture {
+  display: inline-block;
+  height: 130px;
+  width: 130px;
+  margin-bottom: 50px;
+  z-index: 1;
+  position: relative;
+}
+
+.our-team .picture::before {
+  content: "";
+  width: 100%;
+  height: 0;
+  border-radius: 50%;
+  background-color: #2b2f34;
+  position: absolute;
+  bottom: 135%;
+  right: 0;
+  left: 0;
+  opacity: 0.9;
+  transform: scale(3);
+  transition: all 0.3s linear 0s;
+}
+
+.our-team:hover .picture::before {
+  height: 100%;
+}
+
+.our-team .picture::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #45505d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.our-team .picture img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  transform: scale(1);
+  transition: all 0.9s ease 0s;
+}
+
+.our-team:hover .picture img {
+  box-shadow: 0 0 0 14px #f7f5ec;
+  transform: scale(0.7);
+}
+
+.our-team .title {
+  display: block;
+  font-size: 15px;
+  color: #4e5052;
+  text-transform: capitalize;
+}
+
+.our-team .social {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #2c343e;
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  transition: all 0.5s ease 0s;
+}
+
+.our-team:hover .social {
+  bottom: 0;
+}
+
+.our-team .social li {
+  display: inline-block;
+}
+
+.our-team .social li a {
+  display: block;
+  padding: 10px;
+  font-size: 17px;
+  color: white;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+
+.our-team .social li a:hover {
+  color: #313b46;
+  background-color: #f7f5ec;
+}
+
+.our-team {
+  border-radius: 10px;
+  padding: 15px;
+}

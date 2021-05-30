@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load comments %}
+{% load active_class %}
+{% load hitcount_tags %}
+{% block content1 %}
+<figure class="figure profile">
+  <div class="profile-bg"><img class="img-fluid" src="https://picsum.photos/2000/1000?grayscale"></div>
+</figure>
+<div class="profile profile-rise">
+  <div class="profile-content">
+    <div class="profile-des">
+      <div class="jumbotron index-profile">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <div>
+              <div class="avatar">
+                <img src="{{ profile.user.profileimage.profile_image.url }}" class="img-raised rounded-circle img-fluid">
+              </div>
+              <div class="card-2">
+                <div class="name">
+                  <h3 class="center">{{ profile.user }}</h3>
+                  {% if profile.role %}
+                  <h6 class="center">{{ profile.role }}</h6>
+                  {% endif %}
+                  <div class="center">
+                    {% if profile.user.email %}
+                    <a href="mailto:{{ profile.user.email }}" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-envelope-square" aria-hidden="true"></i></a>
+                    {% endif %}
+                    {% if profile.linkedin %}
+                    <a href="{{ profile.linkedin }}" class="btn btn-just-icon btn-link btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                    {% endif %}
+                    {% if profile.twitter %}
+                    <a href="{{ profile.twitter }}" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
+                    {% endif %}
+                    {% if profile.github %}
+                    <a href="{{ profile.github }}" class="btn btn-just-icon btn-link btn-github"><i class="fa fa-github"></i></a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="about" align="center">{{ profile.bio }}</p>
+        <div class="following">
+          <div class="following">
+            <!-- <div class="btn-group btn-action-label" role="group" aria-label="Like">
+              <button type="button" class="btn btn-sm btn-secondary btn-action">
+                <span>followers</span>
+              </button>
+              <a href="#" class="btn btn-sm btn-outline-secondary btn-label">1030</a>
+            </div>
+            <div class="btn-group btn-action-label" role="group" aria-label="Like">
+              <button type="button" class="btn btn-sm btn-secondary btn-action">
+                <span>following</span>
+              </button>
+              <a href="#" class="btn btn-sm btn-outline-secondary btn-label">1030</a>
+            </div> -->
+            <div class="btn-group btn-action-label" role="group" aria-label="Like">
+                <button type="button" class="btn btn-sm btn-secondary btn-action" onclick="window.location.href='{% url 'profiles:profile_article' slug=user.username %}';">
+                  <span>Articles</span>
+                </button>
+            </div>
+            {% if user.is_staff %}
+            <div class="btn-group btn-action-label" role="group" aria-label="Like">
+              <button type="button" class="btn btn-sm btn-secondary btn-action " onclick="window.location.href='{% url 'profiles:profile_quiz' slug=user.username %}';">
+                <span>quiz</span>
+              </button>
+            </div>
+            {% endif %}
+            <div class="btn-group btn-action-label" role="group" aria-label="Like">
+              <button type="button" class="btn btn-sm btn-secondary btn-action ">
+                <span>Assignments</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <hr>
+        {% block profile_content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

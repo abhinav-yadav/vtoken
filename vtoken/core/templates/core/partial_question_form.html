@@ -1,0 +1,11 @@
+{% load crispy_forms_tags %}
+{{questionform|crispy}}
+<br>
+<h6>Options</h6>
+<div  class="myForm" id="myForm">
+  {% for form in formset %}
+  {{form}}
+  <br>
+  {% endfor %}
+</div>
+{{ formset.management_form }}

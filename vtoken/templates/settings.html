@@ -1,0 +1,19 @@
+{% extends 'settings-base.html' %}
+{% block settings-content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-4 offset-md-3 offset-lg-0">
+            <div class="pricingTable"><span class="icon"><i class="fa fa-gear s"></i></span>
+                <div class="pricingTable-header">
+                    <h1 class="title">Settings</h1>
+                </div>
+                <ul class="list-unstyled pricing-content">
+                  <li class="set-li" onclick="window.location.href='{% url 'profiles:profile_update' %}';">Profile</li>
+                  <li class="set-li" onclick="window.location.href='{% url 'profiles:dp_update' %}';">Change Profile Image</li>
+                  <li class="set-li" onclick="window.location.href='{% url 'account_change_password' %}';">change Password</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

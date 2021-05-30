@@ -1,0 +1,33 @@
+{% load core_tags %}
+
+{% for question in questions %}
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h6 class="card-title">Question - {{forloop.counter}}</h6>
+    <b>
+      <p class="card-text">{{question.question}}</p>
+    </b>
+  </div>
+  {% if question.image %}
+  <img class="card-img-top" src="{{ question.image.url }}" alt="Card image cap">
+  {% endif %}
+  <ul class="list-group list-group-flush">
+    {% for option in question.get_options %}
+    <li class="list-group-item" style="background:{% question_answer option.id %};">{{option.option}}</li>
+    {% endfor %}
+  </ul>
+  <div class="card-body">
+    <button type="button" class="btn btn-warning btn-sm js-update-question" data-url="{% url 'core:edit_question' quiz.slug question.id %}">
+      <span class="glyphicon glyphicon-pencil"></span>Edit
+    </button>
+    <button type="button" class="btn btn-danger btn-sm js-delete-question" data-url="{% url 'core:delete_question' quiz.slug question.id %}">
+        <span class="glyphicon glyphicon-trash"></span> Delete
+    </button>
+  </div>
+</div>
+<br>
+{% empty %}
+<div class="">
+  <p class="text-center bg-warning">No questions</p>
+</div>
+{% endfor %}

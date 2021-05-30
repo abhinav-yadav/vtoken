@@ -1,0 +1,33 @@
+{% load core_tags %}
+<div class="jumbotron" style="margin-top:5px;">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h1>{{quiz.title}}</h1>
+      <h6>{{quiz.slug}}</h6>
+      <h3>Result---{{response.correct}} out of {{response.total_questions}} correct</h3>
+      <div class="card-columns">
+      {% for i in record.questions %}
+      {% get_question i as question %}
+      <div class="card" style="width: 18rem;border:{% question_border forloop.counter response.answers %};">
+        <div class="card-body">
+          <h6 class="card-title">Question - {{forloop.counter}}</h6>
+          <b>
+            <p class="card-text" style="color:black;">{{question.question}}</p>
+          </b>
+        </div>
+        {% if question.image %}
+        <img class="card-img-top" src="{{ question.image.url }}" alt="Card image cap">
+        {% endif %}
+        <ul class="list-group list-group-flush">
+          {% for option in question.get_options %}
+          <li class="list-group-item" style="background:{% option_color forloop.parentloop.counter option.option record.key response.answers %};">{{option.option}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <br>
+      {% endfor %}
+    </div>
+    <a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i></a>
+  </div>
+</div>
+</div>

@@ -1,0 +1,66 @@
+{% extends "articles/article_setting_base.html" %}
+{% load crispy_forms_tags %}
+{% block settings-content %}
+{% if heading %}
+<h3>{{heading}}</h3>
+{% endif %}
+<form class="form-horizontal" method="POST" action="{% url 'articles:edit_scribler' slug=article.slug %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Add Scribler</legend>
+      {{form}}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Add</button>
+    </div>
+</form>
+<div class="grid2" data-masonry='{ "itemSelector": ".article-profile-card"}'>
+  {% for author in authors %}
+  <div class="article-p-card">
+    <figure class="article-profile-card">
+      <a href="{% url 'profiles:profile' slug=author.username %}">
+        <img src="{{ author.profileimage.profile_image.url }}" />
+      </a>
+      <figcaption class="apc">
+        <div>
+          <h3>{{ author }}</h3>
+        </div>
+        <div>
+          {% if author.profile.role %}
+          <p class="text-secondary">{{ author.profile.role }}</p>
+          {% endif %}
+        </div>
+        <div class="icons">
+          {% if author.email %}
+          <a href="mailto:{{ author.email }}" class="btn btn-just-icon apc"><i class="fa fa-envelope-square" aria-hidden="true"></i></a>
+          {% endif %}
+          {% if author.profile.linkedin %}
+          <a href="{{ author.profile.linkedin }}" class="btn btn-just-icon apc"><i class="fa fa-linkedin"></i></a>
+          {% endif %}
+          {% if author.profile.twitter %}
+          <a href="{{ author.profile.twitter }}" class="btn btn-just-icon apc"><i class="fa fa-twitter"></i></a>
+          {% endif %}
+          {% if author.profile.github %}
+          <a href="{{ author.profile.github }}" class="btn btn-just-icon apc"><i class="fa fa-github"></i></a>
+          {% endif %}
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+  {% endfor %}
+</div>
+  {% for author in anonymous_authors%}
+  <button type="button" class="mr-1 badge badge-info">{{author}}</button>
+  {% endfor %}
+{% endblock %}
+{% block custom_js %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+$( function() {
+  $('[id$="_scribler"]').autocomplete({
+    source: '{% url 'autocomplete' %}'
+  });
+});
+</script>
+{% endblock %}

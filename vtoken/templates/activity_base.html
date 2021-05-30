@@ -1,0 +1,30 @@
+{% extends 'base1.html' %}
+{% load active_class %}
+{% load static %}
+{% block content1 %}
+<div class="" style="margin-top:5px;">
+  <ul class="nav nav-tabs justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link {% is_active request 'completed' %}" href="{% url 'completed' %}">Completed <i class="fa fa-clock-o" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="nav-item dropdown">
+   <a class="nav-link dropdown-toggle instructor-active-assignment {% is_active request 'instructor-active-quiz' %} {% is_active request 'instructor-active-assignment' %}" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Active</a>
+   <ul class="dropdown-menu">
+     <li><a class="dropdown-item {% is_active request 'instructor-active-quiz' %}" href="{% url 'instructor-active-quiz' %}">Quiz</a></li>
+     <li><a class="dropdown-item {% is_active request 'instructor-active-assignment' %}" href="{% url 'instructor-active-assignment' %}">Assignment</a></li>
+   </ul>
+ </li>
+    <li class="nav-item">
+      <a class="nav-link {% is_active request 'created' %}" href="{% url 'created' %}">Created <i class="fa fa-file-text" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="jumbotron">
+  {% block active_content %}{% endblock %}
+</div>
+{% endblock content1 %}
+{%block custom_js%}
+{%block active_custom_js%}{% endblock %}
+{% endblock %}

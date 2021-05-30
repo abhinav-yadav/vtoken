@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Quiz details</h1>
+  <h6>{{ quiz.title }} <br>{{ quiz.id }}--{{ quiz.slug }}</h6>
+  <div class="container">
+    <form action="{% url 'core:attempt' slug=quiz.slug id=record.id index=index %}" method="post">
+      {% csrf_token %}
+      {{question.question}} <br>
+      <div class="container">
+        {% for option in question.get_options %}
+        <input type="radio" id="{{option.id}}" name={{question.id}} value="{{ option.option }}" required>
+        <label for="{{option.id}}">{{option.option}}</label><br>
+        {% endfor %}
+      </div>
+      {% if number < index %}
+      <button type="submit" name="button">Submit</button>
+      {% else %}
+      <button type="submit" name="button">Next</button>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}

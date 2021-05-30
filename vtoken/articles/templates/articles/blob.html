@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    {% for key, value in breadcrums.items %}
+    <li class="breadcrumb-item ">{% if value == ':' %}{{key}}{% else %}<a href="{% url 'articles:attachment' pk=article.id slug=value %}">{{key}}{% endif %}</a></li>
+    {% endfor %}
+  </ol>
+</nav>
+<div class="jumbotron">
+  <!-- <img class='blob' src="{{file.file.url}}" alt=""> -->
+  <object data="{{file.file.url}}" class='blob'></object>
+  {% if 'mp4' in type %}
+  <video width="100%" controls>
+  <source src="{{file.file.url}}" type="video/mp4">
+  <source src="{{file.file.url}}" type="video/ogg">
+  Your browser does not support the video tag.
+</video>
+  {% endif %}
+</div>
+{% endblock %}

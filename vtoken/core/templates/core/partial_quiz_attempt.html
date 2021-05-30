@@ -1,0 +1,89 @@
+<style media="screen">
+  .thumb1 {
+    background: url({{ quiz.image.url }}) 50% 50% no-repeat;
+    width: 64px;
+    height: 64px;
+  }
+</style>
+<div class="container" style="margin:10px;">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-right:10px;">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-body">
+          <div class="media">
+            <div class="mr-3 rounded thumb1">
+            </div>
+            <div class="media-body">
+              <h4 class="mt-0">{{quiz.title}}</h4>
+              {{ quiz.get_total_no_of_questions }} questions
+            </div>
+          </div>
+          <h6>By : {{quiz.author}}</h6>
+        </div>
+      </div>
+      <div class="col">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">NAME</th>
+              <th scope="col">POINTS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for response in responses_all %}
+            <tr>
+              <td>{{response.record.user}}</td>
+              <td>{{response.correct}}/{{response.total_questions}}</td>
+            </tr>
+            {% empty %}
+            <div class="">
+              <p class="text-center bg-warning">No Records</p>
+            </div>
+            {% endfor %}
+          </tbody>
+        </table>
+        <br>
+      </div>
+    </div>
+    <div class="col">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">RANK</th>
+            <th scope="col">NAME</th>
+            <th scope="col">POINTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for response in responses %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{response.record.user}}</td>
+            <td>{{response.correct}}/{{response.total_questions}}</td>
+          </tr>
+          {% empty %}
+          <div class="">
+            <p class="text-center bg-warning">No Records</p>
+          </div>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+      {% if quiz.get_total_no_of_questions %}
+      <form method="post" action="{% url 'core:attempt_quiz' quiz.slug %}" class="js-quiz-form">
+        {% csrf_token %}
+        {% if responses_all|length %}
+        <button type="submit" class="btn btn-success" data>Retake</button>
+        {% else %}
+        <button type="submit" class="btn btn-success" data>Start</button>
+        {% endif %}
+      </form>
+      {% else %}
+      <p class="text-center bg-warning">No questions to attempt Quiz</p>
+      {% endif %}
+    </div>
+  </div>
+</div>

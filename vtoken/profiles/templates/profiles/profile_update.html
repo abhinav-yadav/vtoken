@@ -1,0 +1,16 @@
+{% extends "settings-base.html" %}
+{% block settings-content %}
+<div class="content-section">
+  <form action="{% url 'profiles:profile_update' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Join Today</legend>
+      {{ user_form}}
+      {{ profile_form}}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

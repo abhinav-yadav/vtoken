@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load comments %}
+{% load comments_xtd %}
+{% load hitcount_tags %}
+{% block content %}
+<div class="jumbotron article">
+  <article>
+    {% if article.image %}
+    <div class="article-image"><img class="img-article" src="{{ article.image.url }}" alt="" /></div>
+    {% endif %}
+    <div class="article-data">
+      <div class="article-metadata">
+        <h1 class="header-stretch">{{ article.title }}</h1>
+        <div class="secondary-article-profile-Card">
+          <div class="spci"><a class="mr-2" href="{% url 'profiles:profile' slug=article.author %}"><img class="sp-img" src="{{ article.author.profileimage.profile_image.url }}" alt="" /></a></div>
+          <!-- <div class="part-2"> -->
+            <div class="s-text">
+              <p class="text-secondary">{{ article.author }}</p>
+            </div>
+            <div class="icons spc">
+              {% if article.author.email %}
+              <a href="mailto:{{ article.author.email }}" class="btn btn-just-icon sapc"><i class="fa fa-envelope-square" aria-hidden="true"></i></a>
+              {% endif %}
+              {% if article.author.profile.linkedin %}
+              <a href="{{ article.author.profile.linkedin }}" class="btn btn-just-icon sapc"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+              {% endif %}
+              {% if article.author.profile.twitter %}
+              <a href="{{ article.author.profile.twitter }}" class="btn btn-just-icon sapc"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+              {% endif %}
+              {% if article.author.profile.github %}
+              <a href="{{ article.author.profile.github }}" class="btn btn-just-icon sapc"><i class="fa fa-github" aria-hidden="true"></i></a>
+              {% endif %}
+            </div>
+            <div class='spc-text'>
+              <small class="text-muted">{{ article.timestamp|date:"F d, Y" }}</small>
+            </div>
+          <!-- </div> -->
+        </div>
+        <div class='card-tag'>
+          {% for tag in article.tags.all %}
+          <button type="button" class="mr-1 badge badge-info" onclick="window.location.href='{% url 'articles:tagged' tag.slug %}';"># {{ tag }}</button>
+          {% endfor %}
+          {% if article.author == request.user %}
+          <button type="button" class="mr-1 badge badge-info" onclick="window.location.href='{% url 'articles:article_setting' pk=article.id %}';"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+          {% endif %}
+        </div>
+
+        <button type="button" class="mr-1 badge badge-info 2" onclick="window.location.href='{% url 'articles:attachment' pk=article.id slug='files' %}';" ><i class="fa fa-folder-open" aria-hidden="true"></i> Attachments</button>
+
+      </div>
+      <div>
+        <div class="post_description post_item">
+          {{ article.content | safe }}
+        </div>
+        <p><a id="like" class='like-btn' data-href='{{ article.get_api_like_url }}' data-likes='{{ article.likes.count }}' href='{{ article.get_like_url }}'>{{ article.likes.count }}<i  class="fa fa-heart-o" aria-hidden="true"></i></a></p>
+      </div>
+    </div>
+  </article>
+  <div class="article-p-card">
+    <figure class="article-profile-card">
+      <a href="{% url 'profiles:profile' slug=article.author.username %}">
+        <img src="{{ article.author.profileimage.profile_image.url }}" />
+      </a>
+      <figcaption class="apc">
+        <div>
+          <h3>{{ article.author }}</h3>
+        </div>
+        <div>
+          {% if article.author.profile.role %}
+          <p class="text-secondary">{{ article.author.profile.role }}</p>
+          {% endif %}
+        </div>
+        <div class="icons">
+          {% if article.author.email %}
+          <a href="mailto:{{ article.author.email }}" class="btn btn-just-icon apc"><i class="fa fa-envelope-square" aria-hidden="true"></i></a>
+          {% endif %}
+          {% if article.author.profile.linkedin %}
+          <a href="{{ article.author.profile.linkedin }}" class="btn btn-just-icon apc"><i class="fa fa-linkedin"></i></a>
+          {% endif %}
+          {% if article.author.profile.twitter %}
+          <a href="{{ article.author.profile.twitter }}" class="btn btn-just-icon apc"><i class="fa fa-twitter"></i></a>
+          {% endif %}
+          {% if article.author.profile.github %}
+          <a href="{{ article.author.profile.github }}" class="btn btn-just-icon apc"><i class="fa fa-github"></i></a>
+          {% endif %}
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+  {% if authors %}
+  <hr>
+  <div class="authors">
+    {% for author in authors %}
+    <button type="button" name="button" class="mr-1 badge badge-info author"><a href="{% url 'profiles:profile' slug=author %}">{{author}}</a></button>
+    {% endfor %}
+    {% for author in anonymous_authors %}
+    <button type="button" class="mr-1 badge badge-info">{{ author }}</button>
+    {% endfor %}
+  </div>
+  {%endif%}
+</div>
+<div id="comments"></div>
+{% endblock %}
+
+{% block custom_js %}
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script>
+window.comments_props = {% get_commentbox_props for article %};
+window.comments_props_override = {
+allow_comments: {%if article.allow_comments%}true{%else%}false{%endif%},
+allow_feedback: true,
+show_feedback: true,
+allow_flagging: true,
+poll_interval: 5000 // In milliseconds.
+};
+</script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+<script src="{% static 'django_comments_xtd/js/vendor~plugin-2.6.0.js' %}"></script>
+<script src="{% static 'django_comments_xtd/js/plugin-2.6.0.js' %}"></script>
+<script>
+  $(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+      html: true
+    });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    function updateText(btn, newCount, verb) {
+      btn.text(newCount + " " +newCount)
+    }
+
+    $(".like-btn").click(function(e) {
+      e.preventDefault()
+      var this_ = $(this)
+      var likeUrl = this_.attr("data-href")
+      var likeCount = parseInt(this_.attr("data-likes"))
+      var elementVar = document.getElementById("like");
+      if (likeUrl) {
+        $.ajax({
+          url: likeUrl,
+          method: "GET",
+          data: {},
+          success: function(data) {
+            var newLikes;
+            if (data.liked) {
+              elementVar.setAttribute("data-likes", likeCount+1);
+              updateText(this_, likeCount+1, "Unlike")
+            } else {
+              elementVar.setAttribute("data-likes", likeCount-1);
+              updateText(this_, likeCount-1, "Like")
+              // remove one like
+            }
+
+          },
+          error: function(error) {
+            console.log(error)
+            console.log("error")
+          }
+        })
+      }
+
+    })
+  })
+</script>
+{% endblock %}

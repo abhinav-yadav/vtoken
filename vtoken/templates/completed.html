@@ -1,0 +1,47 @@
+{% extends 'activity_base.html' %}
+{% load static %}
+{% block active_content %}
+<div class="grid" id="quiz-list">
+  {% for record in records %}
+  <button type="button"  class="js-grid-item" data-url="{% url 'core:user_quiz_record' record.quiz.slug %}">
+  <div class="grid-item">
+    <div class="card" style="width: 290px;margin : 4px;">
+      {% if record.quiz.image %}
+      <img src="{{ record.quiz.image.url }}" class="card-img-top" alt="quiz_image">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ record.quiz.title }}</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+  </div>
+  </button>
+  {% endfor %}
+</div>
+<div class="modal fade" id="modal-quiz">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock active_content%}
+{% block active_custom_js %}
+<script type="text/javascript">
+  $(function() {
+    var loadForm = function() {
+      var btn = $(this);
+      $.ajax({
+        url: btn.attr("data-url"),
+        type: 'get',
+        dataType: 'json',
+        beforeSend: function() {
+          $("#modal-quiz").modal("show");
+        },
+        success: function(data) {
+          $("#modal-quiz .modal-content").html(data.html_code);
+        }
+      });
+    };
+    $("#quiz-list").on("click", ".js-grid-item", loadForm);
+  });
+</script>
+{% endblock active_custom_js%}

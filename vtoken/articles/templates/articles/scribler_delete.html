@@ -1,0 +1,59 @@
+{% extends "articles/article_setting_base.html" %}
+{% load crispy_forms_tags %}
+{% block settings-content %}
+{% if heading %}
+<h3>{{heading}}</h3>
+{% endif %}
+{% if authors|length == 0 and anonymous_authors|length == 0 %}
+<h1>No co-authors to delete</h1>
+{% else %}
+<div class="grid2" data-masonry='{ "itemSelector": ".article-profile-card"}'>
+  {% for author in authors %}
+  <div class="article-p-card">
+    <figure class="article-profile-card">
+      <a href="{% url 'profiles:profile' slug=author.username %}">
+        <img src="{{ author.profileimage.profile_image.url }}" />
+      </a>
+      <figcaption class="apc">
+        <div>
+          <h3>{{ author }}</h3>
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="q" value="{{author}}">
+            <button class="btn btn-outline" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </form>
+        </div>
+        <div>
+          {% if author.profile.role %}
+          <p class="text-secondary">{{ author.profile.role }}</p>
+          {% endif %}
+        </div>
+        <div class="icons">
+          {% if author.email %}
+          <a href="mailto:{{ author.email }}" class="btn btn-just-icon apc"><i class="fa fa-envelope-square" aria-hidden="true"></i></a>
+          {% endif %}
+          {% if author.profile.linkedin %}
+          <a href="{{ author.profile.linkedin }}" class="btn btn-just-icon apc"><i class="fa fa-linkedin"></i></a>
+          {% endif %}
+          {% if author.profile.twitter %}
+          <a href="{{ author.profile.twitter }}" class="btn btn-just-icon apc"><i class="fa fa-twitter"></i></a>
+          {% endif %}
+          {% if author.profile.github %}
+          <a href="{{ author.profile.github }}" class="btn btn-just-icon apc"><i class="fa fa-github"></i></a>
+          {% endif %}
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+  {% endfor %}
+</div>
+  {% for author in anonymous_authors%}
+  <button type="button" class="mr-1 badge badge-info">{{author}}
+    <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="q" value="{{author}}">
+    <button class="btn btn-outline" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+  </form></button>
+  {% endfor %}
+{% endif %}
+{% endblock %}

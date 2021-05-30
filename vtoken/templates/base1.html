@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  {% if title %}
+  <title> Vtoken - {{ title }}</title>
+  {% else %}
+  <title>Vtoken</title>
+  {% endif %}
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+  <!-- CSS only -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+
+  <!-- highlight-js plugins-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  <link rel="stylesheet" type="text/css" href="{% static 'androidstudio.css' %}">
+  <link rel="stylesheet" href="{% static 'css/cropper.min.css' %}">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+  <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/material-icons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/Pretty-Header.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/Header-Dark1.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/Article.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/Article-Cards1.css' %}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+  <!-- below link for article list css -->
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}"> -->
+
+  {% block custom_css %}{% endblock %}
+
+<body onresize="col_width()">
+  <div class="header-dark navbar-fixed-top">
+    <nav class="navbar navbar-dark navbar-expand-lg navigation-clean-search home">
+      <div class="container"><a class="navbar-brand" href="{% url "home" %}">Vtoken - {% if request.user.is_staff %}Staff {% else %}Student {% endif %}</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+          <ul class="nav navbar-nav">
+            <li class="nav-item" role="presentation"><a class="nav-link" href="{% url "home" %}">Home</a></li>
+            <li class="nav-item" role="presentation"><a class="nav-link" href="{% url "about" %}">About</a></li>
+            <!-- <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Dropdown </a>
+              <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation"
+                  href="#">Third Item</a></div>
+            </li> -->
+          </ul>
+          <form class="form-inline mr-auto" target="_self" action="" method="GET">
+            <div class="form-group">
+              <label for="search"><i class="material-icons">search</i></label>
+              <input class="form-control search-field" type="search" id="search" name="q">
+            </div>
+          </form>
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+              {% if user.is_authenticated %}
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"> <img class="dropdown-image" src="{{ user.profileimage.profile_image.url }}"></a>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                  <a class="dropdown-item" role="presentation" href="{% url 'core:create' %}">New Quiz </a>
+                  <a class="dropdown-item" role="presentation" href="{% url 'articles:create' %}">New Article </a>
+
+                  <a class="dropdown-item" role="presentation" href="{% url 'activity' %}">Activity</a>
+
+                  <a class="dropdown-item" role="presentation" href="{% url 'profiles:profile_article' slug=user.username %}">Profile </a>
+                  <a class="dropdown-item" role="presentation" href="{% url 'setting' %}">Settings</a>
+                  <form method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item" role="presentation">Sign Out</button>
+                  </form>
+                </div>
+                {% else %}
+                <span class="navbar-text">
+                  <a class="login" href="{% url 'account_login' %}">Log In</a>
+                  <a  class="login" href="{% url 'account_signup' %}">Sign Up</a>
+                </span>
+                {% endif %}
+              </li>
+            </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container content">{% block content %}{% endblock %}</div>
+  {% block content1 %}{% endblock %}
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="{% static 'assets/js/masonry.js' %}"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="{% static 'js/cropper.min.js' %}"></script>
+  <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="{% static 'assets/js/header-search.js' %}"></script>
+  <script type="text/javascript">
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+<script type="text/javascript">
+  $(function() {
+    $("#search").autocomplete({
+      source: '#'
+    });
+  });
+</script>
+<script type="text/javascript">
+  function col_width() {
+    var x = window.matchMedia("(max-width: 370px)");
+    if (x.matches) {
+      x = 270;
+    } else {
+      x = 310;
+    }
+  $('.grid').masonry({
+    itemSelector: '.article',
+    columnWidth: x,
+    isFitWidth: true
+  });
+ }
+</script>
+<script type="text/javascript">
+    var x = window.matchMedia("(max-width: 370px)");
+    if (x.matches) {
+      x=270;
+    } else {
+      x=310;
+    }
+  $('.grid').masonry({
+    itemSelector: '.grid-item',
+    columnWidth: x,
+    isFitWidth: true
+  });
+</script>
+<script type="text/javascript">
+  $('.grid1').masonry({
+    itemSelector: '.grid-item',
+    columnWidth: 100,
+    isFitWidth: true
+  });
+</script>
+{% block custom_js %}{% endblock %}
+</body>
+
+</html>

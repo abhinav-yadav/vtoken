@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% load comments %}
+{% load hitcount_tags %}
+{% block content1 %}
+<p>Common Tags:
+  {% for mt in common_tags %}
+  <a href="{% url 'articles:tagged' mt.slug %}" class="badge badge-success">{{mt}}</a>
+  {% endfor %}
+</p>
+<div class="grid">
+  {% for article in articles %}
+  {% get_comment_count for article as comment_count %}
+  <div class="grid-item">
+    <figure class="article">
+      {% if article.image %}
+      <div class="image"><img src="{{ article.image.url }}" alt="" /></div>
+      {% endif %}
+      <figcaption>
+        <div class="date"><span class="day">{{ article.timestamp|date:"d" }}</span><span class="month">{{ article.timestamp|date:"F" }}</span></div>
+        <!-- <h3><a class="article-title" href="{% url 'articles:detail' slug=article.slug %}">{{ article.title }}</a></h3> -->
+        <h3>{{ article.title }}</h3>
+        <p>
+          {{article.digest|safe}}
+        </p>
+        <button type="button" class="mr-1 badge badge-info ar" onclick="window.location.href='{% url 'articles:detail' slug=article.slug %}';">read more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+        {% if article.tags.all %}
+        <hr>
+        <div class='card-tag'>
+          {% for tag in article.tags.all %}
+          <button type="button" class="mr-1 badge badge-info" onclick="window.location.href='{% url 'articles:tagged' tag.slug %}';"># {{ tag }}</button>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </figcaption>
+      <footer>
+        {% get_hit_count for article  as count %}
+        {% if count != '0' %}
+        <div class="views"><i class="ion-eye"></i>{% get_hit_count for article %}</div>
+        {% endif %}
+        {% if article.likes.count %}
+        <div class="love"><i class="ion-heart"></i>{{ article.likes.count }}</div>
+        {% endif %}
+        {% if comment_count %}
+        <div class="comments"><i class="ion-chatboxes"></i>{{ comment_count }}</div>
+        {% endif %}
+      </footer>
+    </figure>
+  </div>
+  {% endfor %}
+</div>
+{% if articles.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination pagination-sm justify-content-center">
+    {% if articles.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ articles.previous_page_number }}" tabindex="-1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+    </li>
+    {% endif %}
+    {% for num in articles.paginator.page_range %}
+    {% if articles.number == num %}
+    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+    {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
+    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{num }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if articles.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ articles.next_page_number }}"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock content1 %}

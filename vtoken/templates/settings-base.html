@@ -1,0 +1,58 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% load active_class %}
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'assets/css/Sidebar-Menu-1.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/Sidebar-Menu.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/Bold-BS4-Pricing-Table-Style-55.css' %}">
+{% endblock %}
+{% block content1 %}
+<div class="settings">
+  <div id="wrapper">
+    <div id="sidebar-wrapper" class="sidebar">
+      <figure class="figure sidebar">
+        <div><img class="img-fluid s" src="https://picsum.photos/300/150?grayscale"></div>
+      </figure>
+      <div class="settings-dp">
+        <div class="settings-dp-center">
+          <img src="{{ user.profileimage.profile_image.url }}" class="img-raised rounded-circle img-fluid s">
+        </div>
+      </div>
+
+      <div>
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand"><a href="{% url 'setting' %}"><strong>Settings</strong></a></li>
+          <li> <a href="{% url 'profiles:profile_update' %}" class="{% is_active request 'profiles:profile_update' %}">Profile</a></li>
+          <li><a href="{% url 'profiles:dp_update' %}" class="{% is_active request 'profiles:dp_update' %}">Change Profile Image</a></li>
+          <li><a href="{% url 'account_change_password' %}" class="{% is_active request 'account_change_password' %}"> change Password</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="page-content-wrapper">
+      <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+        <main role="main" class="container">
+          <div class="row">
+            <div class="col-md-8">
+              {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+              {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </main>
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <h1>Sidebar <small></small></h1>
+              <div class="jumbotron">{% block settings-content %}{% endblock %}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="{% url 'profiles:profile' slug=article.author %}">{{ article.author }}</a>
+      <small class="text-muted">{{ article.date|date:"F d, Y" }}</small>
+    </div>
+    <h3>{{article.title}}--attachment</h3>
+    <form class="form-horizontal" method="POST" action="{% url 'articles:edit_attachment' slug=article.slug %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for file in files %}
+          {% if file.file_type in image %}
+            <img src="{{ file.file.url }}" alt=""></img>
+          {% elif file.file_type == 'mp4' %}
+            <video  controls>
+              <source src="{{ file.file.url }}" type="video/mp4" >
+                  Your browser does not support the video tag.
+            </video>
+          {% endif %}
+          <button type="submit" formaction="{% url 'articles:delete_attachment' pk=file.pk %}" formmethod='POST'>delete</button><br>
+        {% endfor %}
+    <div class="row spacer">
+    <div class="col-4">
+        <div class="input-group">
+            {{form|crispy}}
+        </div>
+    </div>
+    </div>
+    <div class="row spacer">
+        <div class="col-4 offset-2">
+            <button type="submit" class="btn btn-block btn-primary">Create</button>
+        </div>
+    </div>
+    </form>
+  </div>
+</article>
+{% endblock %}

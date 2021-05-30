@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Quiz details</h1>
+  <h6>{{ quiz.title }} <br>{{ quiz.id }}--{{ quiz.slug }}</h6>
+  <div class="container" id = 'form'>
+    <form  method="post" id="post-form" action="{% url 'core:attempt_quiz' slug=quiz.slug %}">
+      {% csrf_token %}
+        {{question.question}} <br>
+        <div class="container">
+          {% for option in question.get_options %}
+            <input type="radio" id="{{option.id}}"  name={{question.id}} value="{{ option.option }}" required>
+            <label for="{{option.id}}">{{option.option}}</label><br>
+          {% endfor %}
+        </div>
+      <button type="submit" name="button">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block custom_js %}
+<script>
+  $(document).on('submit', '#post-form',function(e){
+    $.ajax({
+        type:'POST',
+        url:'{% url 'core:attempt_quiz' slug=quiz.slug %}',
+        data:{
+            question_response:$('#{{question.id}}').val(),
+            record_id:{{record.id}},
+            response_id:{{response.id}},
+            index : {{index}},
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            action: 'post'
+        },
+        success:function(json){
+            $("#post-form").remove();
+            $("#form").prepend('<div class="col-md-6">'+
+                '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">' +
+                    '<div class="col p-4 d-flex flex-column position-static">' +
+                        '<h3 class="mb-0">' + json.question.question + '</h3>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+            )
+
+        },
+        error : function(xhr,errmsg,err) {
+        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+    }
+    });
+});
+</script>
+{% endblock %}

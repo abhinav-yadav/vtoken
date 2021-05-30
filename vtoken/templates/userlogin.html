@@ -1,0 +1,13 @@
+{% extends "index1.html" %}
+{% load static %}
+{% block custom_css%} <link rel="stylesheet" href="{% static 'css/Login-Form-Clean.css' %}">  {% endblock %}
+{% block content %}
+<section class="login-clean">
+    <form class="form" >
+        <div class="illustration"><i class="icon ion-ios-person"></i></div>
+        <div class="mb-3"><input class="btn btn-primary d-block w-100" value="I'm Student" onclick="window.location.href='{% url 'student-login' %}';" ></input></div>
+        <div class="mb-3"><input class="btn btn-primary d-block w-100"value="I'm Instructor" onclick="window.location.href='{% url 'account_login' %}';"></input></div>
+    </form>
+</section>
+
+{% endblock %}

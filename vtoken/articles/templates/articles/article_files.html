@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    {% for key, value in breadcrums.items %}
+    <li class="breadcrumb-item ">{% if value == ':' %}{{key}}{% else %}<a href="{% url 'articles:attachment' pk=article.id slug=value %}">{{key}}{% endif %}</a></li>
+    {% endfor %}
+  </ol>
+</nav>
+<div class="container table">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in directories %}
+      {% with path|add:':'|add:d as address %}
+      <tr>
+        <td><i class="fa fa-folder" aria-hidden="true"></i></td>
+        <td><a href="{% url 'articles:attachment' pk=article.id slug=address %}">{{d}}</a></td>
+      </tr>
+      {% endwith %}
+      {% endfor %}
+      {% for name in files %}
+      {% with path|add:':'|add:name as address %}
+      <tr>
+        <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
+        <td><a href="{% url 'articles:blob' pk=article.id slug=address %}"">{{name}}</a></td>
+      </tr>
+      {% endwith %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

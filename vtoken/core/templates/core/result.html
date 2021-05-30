@@ -1,0 +1,20 @@
+{% extends  'base.html' %}
+{% load core_tags %}
+{% block content %}
+<div class="jumbotron">
+  <h1>{{quiz.title}}</h1>
+  <h6>{{quiz.slug}}</h6>
+  <h3>Result---{{response.correct}} out of {{response.total_questions}} correct</h3>
+  {% for i in record.questions %}
+    {% get_question i as question %}
+    <div class="container">
+      {{question.question}}
+      <div class="container" style="padding-left: 30px;">
+        {% for option in question.get_options %}
+            <li style="color:{% option_color forloop.parentloop.counter option.option record.key response.answers %};">{{option.option}}</li>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

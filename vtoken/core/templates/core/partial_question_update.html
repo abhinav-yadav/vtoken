@@ -1,0 +1,21 @@
+<form method="post" action="{% url 'core:edit_question' quiz.slug  question.id %}" class="js-question-update-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <h4 class="modal-title">Update question</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {% include 'core/partial_question_form.html' %}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">update question</button>
+  </div>
+</form>
+<script type="text/javascript">
+  $(function() {
+    $('.myForm').formset();
+  })
+</script>

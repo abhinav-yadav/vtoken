@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  {% if title %}
+  <title> Quiz - {{ title }}</title>
+  {% else %}
+  <title>Intrugue</title>
+  {% endif %}
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+
+  <!-- highlight-js plugins-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+  <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}">
+
+
+  <!-- below link for article list css -->
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}"> -->
+
+  {% block custom_css %}{% endblock %}
+
+<body onresize="col_width()">
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </main>
+  <div class="container content">{% block content %}{% endblock %}</div>
+  {% block content1 %}{% endblock %}
+  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+  <script src="https://www.jqueryscript.net/demo/Tiny-Text-Field-Based-Tags-Input-Plugin-For-jQuery-Tagify/jQuery.tagify.js">  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% block custom_js %}{% endblock %}
+</body>
+</html>
