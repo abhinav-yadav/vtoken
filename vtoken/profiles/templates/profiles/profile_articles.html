@@ -59,6 +59,7 @@
             {{article.digest|safe}}
           </p>
           <button type="button" class="mr-1 badge badge-info ar" onclick="window.location.href='{% url 'articles:detail' slug=article.slug %}';">read more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+          <button type="button" class="mr-1 badge badge-info ar" onclick="#';">pay author <i class="fas fa-wallet" aria-hidden="true"></i></button>
           {% if article.tags.all %}
           <hr>
           <div class='card-tag'>

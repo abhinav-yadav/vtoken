@@ -91,6 +91,7 @@ class Completed(View):
         context = {
             'records' : records,
         }
+        print(records)
         return render(request,'completed.html',context)
 
 class Created(View):
@@ -103,11 +104,19 @@ class Created(View):
 
 class ActiveQuiz(View):
     def get(self, request):
-        activequizes = Quiz.objects.filter(author = request.user,deadline__lte=date.today() )
-        context = {
-            'activequizes' : activequizes,
-        }
-        return render(request, 'active-quiz-instructor.html', context)
+        if request.user.is_staff:
+            activequizes = Quiz.objects.filter(author = request.user,deadline__lte=date.today() )
+            context = {
+                     'activequizes' : activequizes,
+                     }
+            return render(request, 'active-quiz-instructor.html', context)
+        else:
+            quizes = Quiz.objects.all()[:5]
+            context = {
+                'quizes' : quizes,
+            }
+            print(quizes)
+            return render(request, 'active-quiz-student.html', context)
 
 class ActiveAssignment(View):
     def get(self, request):

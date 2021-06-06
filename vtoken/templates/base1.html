@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{% static 'css/cropper.min.css' %}">
   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+  
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
   <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
@@ -68,7 +69,7 @@
               {% if user.is_authenticated %}
                 <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"> <img class="dropdown-image" src="{{ user.profileimage.profile_image.url }}"></a>
                 <div class="dropdown-menu dropdown-menu-right" role="menu">
-                  <a class="dropdown-item" role="presentation" href="{% url 'core:create' %}">New Quiz </a>
+                  {% if request.user.is_staff %}<a class="dropdown-item" role="presentation" href="{% url 'core:create' %}">New quiz</a>{% endif %}
                   <a class="dropdown-item" role="presentation" href="{% url 'articles:create' %}">New Article </a>
 
                   <a class="dropdown-item" role="presentation" href="{% url 'activity' %}">Activity</a>

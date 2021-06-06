@@ -24,6 +24,8 @@
           {{article.digest|safe}}
         </p>
         <button type="button" class="mr-1 badge badge-info ar" onclick="window.location.href='{% url 'articles:detail' slug=article.slug %}';">read more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+
+        {% if request.user != article.author %}<button type="button" class="mr-1 badge badge-info ar" onclick="#';">Tip  <i class="fas fa-wallet" aria-hidden="true"></i></button>{%endif%}
         {% if article.tags.all %}
         <hr>
         <div class='card-tag'>

@@ -129,9 +129,30 @@
   });
 </script>
 <script type="text/javascript">
+  function col_width() {
+    var x = window.matchMedia("(max-width: 370px)");
+    if (x.matches) {
+      x = 270;
+    } else {
+      x = 310;
+    }
+  $('.grid').masonry({
+    itemSelector: '.article',
+    columnWidth: x,
+    isFitWidth: true
+  });
+ }
+</script>
+<script type="text/javascript">
+    var x = window.matchMedia("(max-width: 370px)");
+    if (x.matches) {
+      x=270;
+    } else {
+      x=310;
+    }
   $('.grid').masonry({
     itemSelector: '.grid-item',
-    columnWidth: 260,
+    columnWidth: x,
     isFitWidth: true
   });
 </script>

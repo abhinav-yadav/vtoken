@@ -1,0 +1,51 @@
+{% extends "activity_base.html" %}
+{% load static %}
+{% block active_content %}
+<div class="jumbotron" style="margin-top:5px;">
+    <div class="grid" id="quiz-list">
+        {% for quiz in quizes %}
+        <button type="button" class="js-grid-item" data-url="{% url 'core:attempt_quiz' slug=quiz.slug %}">
+            <div class="grid-item">
+                <div class="card" style="width: 250px;margin : 4px;">
+                    {% if quiz.image %}
+                    <img src="{{ quiz.image.url }}" class="card-img-top" alt="quiz_image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ quiz.title }}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+            </div>
+        </button>
+        {% endfor %}
+    </div>
+</div>
+<div class="modal fade" id="modal-quiz">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script type="text/javascript">
+    $(function () {
+        var loadForm = function () {
+            var btn = $(this);
+            $.ajax({
+                url: btn.attr("data-url"),
+                type: 'get',
+                dataType: 'json',
+                beforeSend: function () {
+                    $("#modal-quiz").modal("show");
+                },
+                success: function (data) {
+                    $("#modal-quiz .modal-content").html(data.html_code);
+                }
+            });
+        };
+        $("#quiz-list").on("click", ".js-grid-item", loadForm);
+    });
+</script>
+{% endblock %}
