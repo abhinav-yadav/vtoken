@@ -1,0 +1,37 @@
+<form (submit)="validate($event)" [formGroup]="form" novalidate>
+        <a href="">
+                <img class="logo2" src="https://www.ibuildamerica-ohio.com/wp-content/uploads/2017/08/icon-yellow-university.svg">
+              </a>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="heading">
+                <h2>
+                    Validate Certificate
+                </h2>
+            </div>
+        </div>
+        <label>
+            <br>
+            <b>Certificate Confirmation ID</b>
+        </label>
+        <input class="form-control" type="text" id="validate">
+        <br>
+        <br>
+        <label for="exampleInputFile">
+            <b>Upload Certificate</b>
+            <br>
+        </label>
+        <br>
+        <input type="file" class="form-control-file" id="fileToUpload">
+        <button type="submit" class="btn btn-success">
+            Validate
+        </button>
+    </div>
+</form>
+<br>
+<div class="container">
+    <div *ngIf="flag" class="card">
+        <div class="card-body">{{doc}}<br>
+            <div *ngIf = "fla" > <a href = {{link}} >Click Here</a></div></div>
+    </div>
+</div>

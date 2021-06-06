@@ -1,0 +1,28 @@
+.container {
+    max-width: 30%;
+}
+
+.heading {
+    text-align: center;
+    color: #003b5d;
+}
+
+.jumbotron {
+    padding: 0.5%;
+    background-color: #cfdaef;
+    margin-top: 20%;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    margin-top: 12%;
+}
+.logo2 {
+    position: relative;
+    left: 1.5%;
+    margin-top: 0.4%;
+    width: 3.5%;
+    margin-bottom: 0.4%;
+}

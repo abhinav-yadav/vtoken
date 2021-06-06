@@ -1,0 +1,46 @@
+.logo2 {
+    position: relative;
+    left: 1.5%;
+    margin-top: 0.4%;
+    width: 6%;
+  }
+
+.logo {
+    position: relative;
+    left: 1.5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.heading {
+    text-align: center;
+}
+
+.container {
+    max-width: 45%;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.jumbotron {
+    padding: 0.5%;
+    background-color: #b9aae4;
+}
+
+.bottomImage {
+    width: 2.5%;
+}
+
+.approveMessage{
+    background-color: #ddffdd;
+    border-left: 6px solid #4CAF50;
+    text-align: center;
+    margin-top: 4%;
+}
+
+.tableButton {
+    float: right;
+    margin-top: 12%;
+}

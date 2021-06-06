@@ -1,0 +1,123 @@
+.body{
+
+    overflow: hidden;
+}
+.container {
+    max-width: 65%;
+}
+
+.container2 {
+    max-width: 65%;
+    margin-top: 0;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.heading {
+    text-align: center;
+    color: white;
+}
+
+.heading2 {
+    text-align: center;
+    color: white;
+}
+
+.jumbotron {
+    padding: 0.18%;
+    background-color: #0a90c4;
+    margin-bottom: 0;
+}
+
+.jumbotron-fluid {
+    border-radius: 6px;
+}
+
+.logo {
+    position: relative;
+    left: 1.5%;
+    margin-top: 1%;
+    width: 4%;
+    margin-bottom: 0.4%;
+}
+
+.logo2 {
+    width: 28%;
+}
+
+.col{
+    width: 50%;
+}
+.col1{
+    width: 97%;
+    text-align: right;
+}
+.col2{
+    text-align: right;
+}
+.imageButton {
+    text-align: left;
+}
+#but{
+    background: none!important;
+    color: inherit;
+    border: none;
+    padding: 0!important;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+    color: #0a90c4;
+}
+
+
+
+.ad{
+    width: 400px;
+}
+.studentLoginButton {
+    margin-bottom: 30%;
+}
+
+.tablink {
+    background-color: #777;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 15px 12px;
+    font-size: 15px;
+    width: 57%;
+    margin-left: 13%;
+}
+
+.tablink:hover {
+    background-color: #0a90c4;
+}
+
+.tablink2 {
+    background-color: #777;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 12px 11px;
+    font-size: 17px;
+    margin-left: 9%;
+    margin-top: 2%;
+}
+
+.tablink2:hover {
+    background-color: #0a90c4;;
+}
+
+
+.backImage {
+    width: 2%;
+    float: right;
+    margin-top: 2%;
+    margin-right: 4%;
+  }
+  

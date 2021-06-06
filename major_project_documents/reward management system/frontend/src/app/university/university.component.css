@@ -1,0 +1,96 @@
+.heading {
+    text-align: center;
+    color: black;
+}
+
+.container {
+    max-width: 40%;
+}
+
+.container2 {
+    max-width: 50%;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.submitToBlockchainMessage {
+    background-color: #ddffdd;
+    border-left: 6px solid #4CAF50;
+    text-align: center;
+}
+
+.jumbotron {
+    padding: 0.5%;
+    background-color: #fbd482;
+}
+
+.submitMessage {
+    background-color: #ddffdd;
+    border-left: 6px solid #4CAF50;
+    text-align: center;
+    margin-top: 1%;
+}
+
+/* .form-group[_ngcontent-c0] {
+    margin-bottom: 1rem;
+} */
+
+[hidden] {
+    display: none !important;
+}
+
+.footerImage {
+    float: right;
+    width: 16%;
+    margin-top: 7%;
+    margin-right: 43%;
+}
+
+.logo {
+    position: relative;
+    left: 1.5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.logo2 {
+    position: relative;
+    left: 1.5%;
+    margin-top: 0.4%;
+    width: 3.5%;
+    margin-bottom: 0.4%;
+}
+
+.btn-success {
+    background-color: #0eaae8;
+    border-color: #0eaae8;
+}
+
+.buttonSubmit {
+    background-color: #cfdaef;
+    border-color: #cfdaef;
+    color: #003b5d;
+}
+
+.invalidMessage {
+    background-color: #ffdddd;
+    border-left: 6px solid red;
+    text-align: center;
+    margin-top: 4%;
+}
+
+.tableButton {
+    float: right;
+    margin-top: 12%;
+}
+
+.bottomImage {
+    width: 4%;
+}
