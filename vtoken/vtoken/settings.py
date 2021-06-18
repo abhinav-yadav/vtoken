@@ -139,7 +139,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vtoken',
         'USER': 'postgres',
-        'PASSWORD': 'a7989624379A',
+        'PASSWORD': '123456789',
         'HOST': 'localhost',
         'PORT': '5432',
     }
