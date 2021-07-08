@@ -1,4 +1,4 @@
-# Student loyality and reward management System
+# Student loyalty and reward management System
 ![Badges](https://img.shields.io/badge/Powerd%20By-Django-blue.svg)
 ![Badges](https://img.shields.io/github/license/mashape/apistatus.svg)
 ![Badges](https://img.shields.io/badge/Powered%20By-brownie-blue)
