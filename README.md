@@ -8,7 +8,7 @@
 >Notice: Project has not been completely developed yet. It's in phase3 development and integration of web3 components to the web application
 
 ## What's this?
-This is a reward management system powered by `Django`, `ERC20` and `Brownie`. To collect the customcrypto tokens, they have to contribute articles to thepage or complete the milestones or assignmentscreated by the students' respective faculty. Article posts can be based on any topic that intrigues oneself, based on the popularity of the article the author receives the tokens from the project developers and could even receive the tokens as a tip from avid readers.
+This is a reward management system powered by `Django`, `ERC20` and `Brownie`. To collect the custom crypto tokens, they have to contribute articles to thepage or complete the milestones or assignmentscreated by the students' respective faculty. Article posts can be based on any topic that intrigues oneself, based on the popularity of the article the author receives the tokens from the project developers and could even receive the tokens as a tip from avid readers.
 
 ## Features
 - Personalized user page.
